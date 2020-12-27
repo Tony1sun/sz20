@@ -28,3 +28,4 @@ class HeroInfo(models.Model):
     #备注
     hcomment = models.CharField(max_length=128)
     hbook = models.BooleanField()
+    test1
