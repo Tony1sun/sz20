@@ -12,6 +12,10 @@ class BookInfo(models.Model):
     #出版日期
     bpub_date = models.DateField()
 
+    def __str__(self):
+        #返回书名
+        return self.btitle
+
 
 #多类
 #英雄人物类
@@ -27,5 +31,5 @@ class HeroInfo(models.Model):
     hgender = models.BooleanField(default=False)
     #备注
     hcomment = models.CharField(max_length=128)
-    hbook = models.BooleanField()
-    test1
+    #关系属性对应表的字段名
+    hbook = models.ForeignKey('BookInfo')
