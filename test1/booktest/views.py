@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from booktest.models import BookInfo
 from django.template import loader, RequestContext
 
 # Create your views here.
@@ -19,3 +20,23 @@ def index(request):
 
 def index2(request):
     return HttpResponse('Hello python')
+
+def show_books(request):
+    '''显示图书的信息'''
+    #通过M查找图书表中的数据
+    books = BookInfo.objects.all()
+    #使用模板
+    return render(request, 'booktest/show_books.html', {'books':books})
+
+def detail(request, bid):
+    '''查询图书关联的英雄信息'''
+    #根据bid查询图书信息
+    book = BookInfo.objects.get(id=bid)
+    #查询和book关联的英雄信息
+    heros = book.heroinfo_set.all()
+
+    return render(request, 'booktest/detail.html',
+                  {'book':book,'heros':heros})
+
+
+
