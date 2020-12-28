@@ -33,3 +33,6 @@ class HeroInfo(models.Model):
     hcomment = models.CharField(max_length=128)
     #关系属性对应表的字段名
     hbook = models.ForeignKey('BookInfo')
+
+    def __str__(self):
+        return self.hname
