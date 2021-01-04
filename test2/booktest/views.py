@@ -42,5 +42,5 @@ def areas(request):
     #查询广州市的下级地区
     children = area.areainfo_set.all()
     #使用模板
-    return render(request, '/booktest/areas.html', {'area':area,
+    return render(request, 'booktest/areas.html', {'area':area,
                 'parent':parent, 'children':children})
