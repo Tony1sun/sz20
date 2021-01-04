@@ -67,3 +67,11 @@ class EmployeeDetailInfo(models.Model):
     addr = models.CharField(max_length=256)
     #关系属性
     # employee_basic = models.OneToOneField('EmployeeBasicInfo')
+
+class AreaInfo(models.Model):
+    '''地区模型类'''
+    #地区
+    atitle = models.CharField(max_length=20)
+    #关系属性'代表当前地区的父级地区
+    aParent = models.ForeignKey('self', null=True, blank=True)
+

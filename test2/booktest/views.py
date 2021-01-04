@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from booktest.models import BookInfo
+from booktest.models import BookInfo,AreaInfo
 from datetime import date
 from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
@@ -32,3 +32,15 @@ def delete(request,bid):
     #重定向
     # return HttpResponseRedirect('/index')
     return redirect('/index')
+
+def areas(request):
+    '''获取广州市的上级地区和下级地区'''
+    #获取广州市的信息
+    area = AreaInfo.objects.get(atitle='广州市')
+    #查询广州市的上级地区
+    parent = area.aParent
+    #查询广州市的下级地区
+    children = area.areainfo_set.all()
+    #使用模板
+    return render(request, '/booktest/areas.html', {'area':area,
+                'parent':parent, 'children':children})
