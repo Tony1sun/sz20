@@ -48,9 +48,9 @@ class NewsInfo(models.Model):
     #信息内容
     content = models.TextField()
     #关系属性
-    news_type = models.ManyToManyField('NewsType')
+    # news_type = models.ManyToManyField('NewsType')
 
-
+#员工基本信息类
 class EmployeeBasicInfo(models.Model):
     #姓名
     name = models.CharField(max_length=20)
