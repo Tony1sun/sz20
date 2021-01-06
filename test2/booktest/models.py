@@ -1,5 +1,30 @@
 from django.db import models
 
+class BookInfoManager(models.Manager):
+    '''图书模型管理器类'''
+    #改变查询结果集
+    def all(self):
+        #调用父类的all，获取所有数据
+        books = super().all()
+        #对数据进行过滤
+        books = books.filter(isDelete=False)
+        #返回
+        return books
+
+    #封装函数:操作模型类对应的数据表(增删改查)
+    def create_book(self, btitle, bpub_date):
+        #创建一个图书对象
+        #获取self所在的模型类
+        model_class = self.model
+        book = model_class()
+        # book = BookInfo()
+        book.btitle = btitle
+        book.bpub_date = bpub_date
+        #保存进数据库
+        book.save()
+        #返回book
+        return book
+
 # Create your models here.
 class BookInfo(models.Model):
     '''图书模型类'''
@@ -16,6 +41,22 @@ class BookInfo(models.Model):
     bcomment = models.IntegerField(default=0)
     #删除标记
     isDelete = models.BooleanField(default=False)
+    #自定义一个Manager类对象
+    book = models.Manager()
+    objects = BookInfoManager() #自定义一个BookInfoManger类的对象
+
+    # @classmethod
+    # def create_book(cls, btitle, bpub_date):
+    #     #创建一个图书对象
+    #     obj = cls()
+    #     obj.btitle = btitle
+    #     obj.bpub_date = bpub_date
+    #     #保存到数据库
+    #     obj.save()
+    #     return obj
+
+    class Meta:
+        db_table = 'bookinfo' #指定模型类对应的表名
 
 
 class HeroInfo(models.Model):
