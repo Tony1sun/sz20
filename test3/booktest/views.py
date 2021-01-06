@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 # Create your views here.
 def index(request):
@@ -13,3 +13,13 @@ def login(request):
 
 def login_check(request):
     '''登录校验视图'''
+    #获取提交的用户名和密码
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    print(username + ':' + password)
+    #进行登陆的校验
+    if username == 'admin' and password == '123456':
+        return redirect('/index')
+    else:
+    #返回应答
+        return redirect('/login')

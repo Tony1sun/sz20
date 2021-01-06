@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^index/', views.index),
     url(r'^showarg(\d+)$', views.show_arg),
     url(r'^login$', views.login),
+    url(r'^login_check$', views.login_check),
 ]
