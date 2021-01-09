@@ -10,14 +10,19 @@ def show_arg(request, num):
     return HttpResponse(num)
 
 def login(request):
-    '''获取cookie.username'''
-    if 'username' in request.COOKIES:
-        #获取记住的用户名
-        username = request.COOKIES['username']
+    #判断用户是否登陆
+    if request.session.has_key('islogin'):
+        #用户已登陆，挑战到首页
+        return redirect('/index')
     else:
-        username = ''
-    return render(request, "booktest/login.html",
-            {'username':username})
+    #获取cookie.username
+        if 'username' in request.COOKIES:
+            #获取记住的用户名
+            username = request.COOKIES['username']
+        else:
+            username = ''
+        return render(request, "booktest/login.html",
+                {'username':username})
 
 def login_check(request):
     '''登录校验视图'''
@@ -36,6 +41,8 @@ def login_check(request):
             #设置cookie
             response.set_cookie('username',username,
                     max_age=7*24*3600)
+        #记住用户登陆状态
+        request.session['islogin'] = True
         return response
     else:
     #返回应答
@@ -75,3 +82,22 @@ def get_cookie(request):
     '''获取cookie信息'''
     num = request.COOKIES['num']
     return HttpResponse(num)
+
+def set_session(request):
+    '''设置session'''
+    request.session['username'] = 'admin'
+    request.session['age'] = 18
+    request.session.set_expiry(3)
+    return HttpResponse('设置session')
+
+def get_session(request):
+    '''获取session'''
+    username = request.session['username']
+    age = request.session['age']
+    return HttpResponse(username+':'+str(age))
+
+def clear_session(request):
+    '''清楚session'''
+    # request.session.clear()
+    request.session.flush()
+    return HttpResponse('清除成功')
