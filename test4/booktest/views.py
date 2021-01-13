@@ -118,7 +118,7 @@ def login_check(request):
     # 2.进行登录的校验
     # 实际开发:根据用户名和密码查找数据库
     # 模拟: smart 123
-    if username == 'smart' and password == '123':
+    if username == 'admin' and password == '123456':
         # 用户名密码正确，跳转到修改密码页面
         response = redirect('/change_pwd')
 
@@ -200,7 +200,8 @@ def verify_code(request):
         rand_str += str1[random.randrange(0, len(str1))]
 
     # 构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
-    font = ImageFont.truetype('FreeMono.ttf', 23)
+    # font = ImageFont.truetype('FreeMono.ttf', 23)
+    font = ImageFont.load_default().font
     # 构造字体颜色
     fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
     # 绘制4个字
