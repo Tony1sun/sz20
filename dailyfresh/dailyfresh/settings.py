@@ -122,3 +122,19 @@ TINYMCE_DEFAULT_CONFIG = {
     'width': 600,
     'height': 400,
 }
+
+# APPEND_SLASH=False
+
+# 发送邮件设置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False   # 是否使用TLS安全传输协议
+EMAIL_USE_SSL = True    # 是否使用SSL加密，qq企业邮箱要求使用
+# SMTP地址
+EMAIL_HOST = 'smtp.qq.com'
+# SMTP端口
+EMAIL_PORT = 465
+# 自己的邮箱
+EMAIL_HOST_USER = '909440898@qq.com'
+# 自己的邮箱授权码，非密码
+EMAIL_HOST_PASSWORD = 'anciyzarwskkbbia'
+EMAIL_FROM = '天天生鲜<909440898@qq.com>'
